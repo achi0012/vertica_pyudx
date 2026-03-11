@@ -7,3 +7,5 @@ See the details in [v_ollama/README.md](v_ollama/README.md).
 See the details in [v_sentiment/README.md](v_sentiment/README.md).
 
 See the details in [v_search/README.md](v_search/README.md).
+
+See the details in [v_hash/README.md](v_hash/README.md).

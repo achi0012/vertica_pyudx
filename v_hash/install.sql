@@ -1,0 +1,2 @@
+CREATE OR REPLACE LIBRARY VerticaExtPy_V_Hash AS '/home/dbadmin/vertica_pyudx/v_hash/v_hash.py' LANGUAGE 'Python';
+CREATE OR REPLACE FUNCTION public.v_hash AS LANGUAGE 'Python' NAME 'v_hash_factory' LIBRARY VerticaExtPy_V_Hash fenced;
