@@ -9,3 +9,5 @@ See the details in [v_sentiment/README.md](v_sentiment/README.md).
 See the details in [v_search/README.md](v_search/README.md).
 
 See the details in [v_hash/README.md](v_hash/README.md).
+
+See the details in [v_cosine_similarity/README.md](v_cosine_similarity/README.md).
