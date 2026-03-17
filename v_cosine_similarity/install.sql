@@ -1,0 +1,2 @@
+CREATE OR REPLACE LIBRARY VerticaExtPy_V_CosineSimilarity AS '/home/dbadmin/vertica_pyudx/v_cosine_similarity/v_cosine_similarity.py' LANGUAGE 'Python';
+CREATE OR REPLACE FUNCTION public.v_cosine_similarity AS LANGUAGE 'Python' NAME 'v_cosine_similarity_factory' LIBRARY VerticaExtPy_V_CosineSimilarity fenced;
