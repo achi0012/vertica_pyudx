@@ -56,10 +56,14 @@ class v_sentiment(vertica_sdk.ScalarFunction):
         session = requests.Session()
         url = arg_reader.getString(0)
         while True:
-            text = arg_reader.getString(1)
-            result = self.tag_sentiment(session, url, text)
-            res_writer.setString(result)
-            res_writer.next()
+            try:
+                text = arg_reader.getString(1)
+                result = self.tag_sentiment(session, url, text)
+                res_writer.setString(result)
+                res_writer.next()
+            except Exception as err:
+                res_writer.setString("neutral")
+                res_writer.next()
             if not arg_reader.next():
                 # Stop processing when there are no more input rows.
                 break
