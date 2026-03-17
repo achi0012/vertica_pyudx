@@ -33,7 +33,7 @@ class v_cosine_similarity(vertica_sdk.ScalarFunction):
         while True:
             text0 = arg_reader.getString(0)
             text1 = arg_reader.getString(1)
-            res_writer.setString(self.caculate(text0, text1))
+            res_writer.setFloat(self.caculate(text0, text1))
             res_writer.next()
             if not arg_reader.next():
                 # Stop processing when there are no more input rows.
@@ -51,7 +51,7 @@ class v_cosine_similarity_factory(vertica_sdk.ScalarFunctionFactory):
     def getPrototype(self, srv_interface, arg_types, return_type):
         arg_types.addVarchar()
         arg_types.addVarchar()
-        return_type.addFloat8()
+        return_type.addFloat()
 
     def getReturnType(self, srv_interface, arg_types, return_type):
-        return_type.addFloat8()
+        return_type.addFloat()
