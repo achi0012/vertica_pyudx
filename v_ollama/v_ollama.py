@@ -17,8 +17,11 @@ class v_ollama_embedding(vertica_sdk.ScalarFunction):
         client = Client(host=host)
         while True:
             text = arg_reader.getString(3)
-            result = client.embed(model=model, dimensions=dimension, input=text)
-            res_writer.setArray(result["embeddings"][0])
+            if text is None or not text.strip():
+                res_writer.setNull()
+            else:
+                result = client.embed(model=model, dimensions=dimension, input=text)
+                res_writer.setArray(result["embeddings"][0])
             res_writer.next()
             if not arg_reader.next():
                 # Stop processing when there are no more input rows.
