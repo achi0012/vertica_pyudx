@@ -1,0 +1,2 @@
+CREATE OR REPLACE LIBRARY VerticaExtPy_V_Vault AS '/home/dbadmin/vertica_pyudx/v_vault/v_vault.py' LANGUAGE 'Python';
+CREATE OR REPLACE FUNCTION public.v_vault AS LANGUAGE 'Python' NAME 'v_vault_factory' LIBRARY VerticaExtPy_V_Vault fenced;
