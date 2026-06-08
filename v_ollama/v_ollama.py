@@ -20,8 +20,12 @@ class v_ollama_embedding(vertica_sdk.ScalarFunction):
             if text is None or not text.strip():
                 res_writer.setNull()
             else:
-                result = client.embed(model=model, dimensions=dimension, input=text)
-                res_writer.setArray(result["embeddings"][0])
+                try:
+                    result = client.embed(model=model, dimensions=dimension, input=text)
+                    res_writer.setArray(result["embeddings"][0])
+                except Exception as e:
+                    print(f"Error occurred while embedding text: {e}")
+                    res_writer.setNull()
             res_writer.next()
             if not arg_reader.next():
                 # Stop processing when there are no more input rows.
