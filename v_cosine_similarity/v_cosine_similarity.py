@@ -11,29 +11,31 @@ class v_cosine_similarity(vertica_sdk.ScalarFunction):
     def setup(self, server_interface, col_types):
         pass
 
-    def caculate(self, text1, text2):
-        # text1 is json array string, text2 is json array string
-        # convert text1 , text2 to array
-
+    def calculate(self, text1, text2):
         vec1 = json.loads(text1)
         vec2 = json.loads(text2)
 
         if not vec1 or not vec2:
             return 0.0
 
-        dot_product = sum(a * b for a, b in zip(vec1, vec2))
-        magnitude1 = math.sqrt(sum(a * a for a in vec1))
-        magnitude2 = math.sqrt(sum(b * b for b in vec2))
+        dot = 0.0
+        mag1_sq = 0.0
+        mag2_sq = 0.0
+        for a, b in zip(vec1, vec2):
+            dot += a * b
+            mag1_sq += a * a
+            mag2_sq += b * b
 
-        if magnitude1 == 0 or magnitude2 == 0:
+        denom = math.sqrt(mag1_sq * mag2_sq)
+        if denom == 0.0:
             return 0.0
-        return float(dot_product / (magnitude1 * magnitude2))
+        return dot / denom
 
     def processBlock(self, server_interface, arg_reader, res_writer):
         while True:
             text0 = arg_reader.getString(0)
             text1 = arg_reader.getString(1)
-            res_writer.setFloat(self.caculate(text0, text1))
+            res_writer.setFloat(self.calculate(text0, text1))
             res_writer.next()
             if not arg_reader.next():
                 # Stop processing when there are no more input rows.
