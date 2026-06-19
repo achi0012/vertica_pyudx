@@ -14,7 +14,7 @@ class v_ollama_embedding(vertica_sdk.ScalarFunction):
         host = arg_reader.getString(0)
         model = arg_reader.getString(1)
         dimension = arg_reader.getInt(2)
-        client = Client(host=host)
+        client = Client(host=host, timeout=300.0)
         while True:
             text = arg_reader.getString(3)
             if text is None or not text.strip():
